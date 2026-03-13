@@ -3,17 +3,27 @@ file_path = './FASTA/hemoglobin-subunit-beta.txt'
 with open(file_path, 'r') as file:
     dna_sequence = file.read()
 
-# translating the DNA sequence to RNA sequence by using mapping methods
-def dna_to_rna(dna_seq):
+# creating a complementry RNA sequence strand from the DNA sequence strand
+# this does the mappling like this: A -> U, T -> A, C -> G, G -> C
+def complementry_rna(dna_seq):
     translation_tb  = dna_seq.maketrans('ATCG', 'UAGC') #maketrans() method is used to create a translation table that maps each character in the first string ('ATCG') to the corresponding character in the second string ('UAGC'). This allows us to easily translate the DNA sequence into an RNA sequence by replacing 'A' with 'U', 'T' with 'A', 'C' with 'G', and 'G' with 'C'.
-    rna_sequence = dna_seq.translate(translation_tb) #translate() method is used to perform the actual translation of the DNA sequence into an RNA sequence using the translation table created by maketrans(). It replaces each character in the DNA sequence according to the mapping defined in the translation table, resulting in the corresponding RNA sequence.
-    return rna_sequence
+    complement_rna = dna_seq.translate(translation_tb) #translate() method is used to perform the actual translation of the DNA sequence into an RNA sequence using the translation table created by maketrans(). It replaces each character in the DNA sequence according to the mapping defined in the translation table, resulting in the corresponding RNA sequence.
+    return complement_rna
 
-rna_sequence = dna_to_rna(dna_sequence)
-print("RNA Sequence: " + "\n\n" + rna_sequence)
+comp_rna_strand = complementry_rna(dna_sequence)
+print("The complementry RNA Sequence Strand is: " + "\n\n" + comp_rna_strand)
+
+
+# transcribing the DNA sequence to RNA sequence by replacing 'T' with 'U'
+def transcribe_dna_to_rna(dna_seq):
+    rna_seq = dna_seq.replace('T', 'U')
+    return rna_seq
+
+rna_sequence = transcribe_dna_to_rna(dna_sequence)
+print("The transcribed RNA Sequence is: " + "\n\n" + rna_sequence)
+
 
 ### translating the RNA sequence to protein sequence ###
-
 # copy the dictionary from the rna_codon_table.txt file 
 RNA_Codons = {
     # 'M' - START, '*' - STOP
